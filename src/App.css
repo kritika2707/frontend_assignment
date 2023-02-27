@@ -36,3 +36,51 @@
     transform: rotate(360deg);
   }
 }
+
+table{
+  border: 1px solid black;
+  border-collapse: collapse;
+  width: 90%;
+  margin: auto;
+}
+th, td{
+  border: 2px solid black;
+}
+th{
+  background-color: #282c34;
+  color: aliceblue;
+  padding: 12px;
+}
+td{
+  text-align: center;
+  color: rgb(195, 243, 237);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: gray;
+  font-weight: 500;
+}
+button{
+  background-color: #0f1011;
+  color: aliceblue;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 15px;
+}
+
+body{
+  background-color: #353837;
+}
+
+h1{
+  color: antiquewhite;
+}
+button:hover{
+  background-color: aliceblue;
+  color: #0f1011;
+}
+hr{
+  width: 5%;
+  height: 2px;
+  background-color:  rgb(44, 240, 217);
+}

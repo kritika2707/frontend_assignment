@@ -4,13 +4,22 @@ export default class UserApi extends Component {
   render() {
     return (
       <div>
-        <table border="2px solid black">
+        <table >
+        <thead>
         <tr>
-        <th>Id</th>
-        <th>Title</th>
-        <th>Message</th>
+        <th>UserId</th>
+        <th>Name</th>
+        <th>Username</th>
+        <th>Email</th>
+        {/* <th>Address</th> */}
+        <th>Phone</th>
+        <th>Website</th>
+        {/* <th>Company</th> */}
         </tr>
-        {this.state.users.map(user=><tr><td>{user.id}</td><td>{user.title}</td><td>{user.body}</td></tr>)}
+        </thead>
+        <tbody>
+        {this.props.users && this.props.users.map(user=><tr><td>{user.id}</td><td>{user.name}</td><td>{user.username}</td><td>{user.email}</td><td>{user.phone}</td><td>{user.website}</td></tr>)}
+        </tbody>
         </table>
       </div>
     )
