@@ -6,13 +6,14 @@ export default class CommentsApi extends Component {
     return (
       <div>
         <table>
-        <tr>
+        <thead>
         <th>Id</th>
         <th>Name</th>
         <th>Email</th>
         <th>Message</th>
-        </tr>
-        {comments && comments.map(comment=><tr><td>{comment.id}</td><td>{comment.name}</td><td>{comment.email}</td><td>{comment.body}</td></tr>)}
+        <th>Delete Record</th>
+        </thead>
+        {comments && comments.map(comment=><tr><td>{comment.id}</td><td>{comment.name}</td><td>{comment.email}</td><td>{comment.body}</td><td><button className='delete-btn' onClick={()=>this.props.del(comment.id)}>Delete</button></td></tr>)}
         </table>
       </div>
     )

@@ -17,22 +17,27 @@ export default class App extends Component {
      axios.get('https://jsonplaceholder.typicode.com/users')
     
      .then(resp => this.setState({items:resp.data}))
-     //console.log('Component did mount',this.state.items);
+     
   }
   
   componentDidUpdate(prevProps, prevState){
     
     if(prevState.resourceType !== this.state.resourceType)
     {
-      //console.log(this.state.resourceType)
+      
       axios.get(`https://jsonplaceholder.typicode.com/${this.state.resourceType}`)
       
       .then(resp => this.setState({items:resp.data}))
     }
   }
-  
+  del = (id)=>{
+    console.log(id)
+    const dataCopy = this.state.items.filter((row)=>row.id !== id)
+    console.log(dataCopy)
+    this.setState({items:dataCopy});
+  }
   render() {
-    console.log("inside render",this.state.items)
+    
     return (
       <div> 
         <button className='btn' onClick={()=>{this.setState({resourceType:'posts'})}}>Posts</button>
@@ -40,9 +45,9 @@ export default class App extends Component {
         <button className='btn' onClick={()=>{this.setState({resourceType:'users'})}}>Users</button>
         <h1 align="center">{(this.state.resourceType).toUpperCase()}</h1>
         <hr></hr><br></br>
-        {(this.state.resourceType==='posts') && <PostApi posts={this.state.items}/>}
-        {(this.state.resourceType==='comments') && <CommentsApi comments={this.state.items}/>}
-        {(this.state.resourceType==='users') && <UserApi users={this.state.items}/>}
+        {(this.state.resourceType==='posts') && <PostApi posts={this.state.items} del={this.del}/>}
+        {(this.state.resourceType==='comments') && <CommentsApi comments={this.state.items} del={this.del}/>}
+        {(this.state.resourceType==='users') && <UserApi users={this.state.items} del={this.del}/>}
         
       </div>
     );
