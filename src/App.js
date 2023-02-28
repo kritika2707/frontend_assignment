@@ -4,7 +4,7 @@ import UserApi from './components/UserApi';
 import CommentsApi from './components/CommentsApi'
 import axios from 'axios';
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 export default class App extends Component {
   constructor(props){
@@ -64,15 +64,15 @@ export default class App extends Component {
     
     return (
       <div> 
-        <Routes>
-          <Route path='/posts' element={<PostApi/>}/>
-          <Route path='/comments' element={<CommentsApi/>}/>
-          <Route path='/users' element={<UserApi/>}/>      
-        </Routes>
+        {/* <Routes> */}
+          {/* <Route path='/posts' element={<PostApi/>}/> */}
+          {/* <Route path='/comments' element={<CommentsApi/>}/> */}
+          {/* <Route path='/users' element={<UserApi/>}/>       */}
+        {/* </Routes> */}
         <div>
-        <button className='btn' onClick={()=>{this.changeState('posts')}}>Posts</button>
-        <button className='btn' onClick={()=>{this.changeState('comments')}}>Comments</button>
-        <button className='btn' onClick={()=>{this.changeState('users')}}>Users</button>
+        <Link to='/posts'><button className='btn' onClick={()=>{this.changeState('posts')}}>Posts</button></Link>
+        <Link to='/comments'><button className='btn' onClick={()=>{this.changeState('comments')}}>Comments</button></Link>
+        <Link to='/users'><button className='btn' onClick={()=>{this.changeState('users')}}>Users</button></Link>
         </div>
         <h1 align="center">{(this.state.resourceType).toUpperCase()}</h1>
         <hr></hr><br></br>
