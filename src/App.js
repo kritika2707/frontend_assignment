@@ -20,16 +20,16 @@ export default class App extends Component {
      
   }
   
-  componentDidUpdate(prevProps, prevState){
-    
-    if(prevState.resourceType !== this.state.resourceType)
-    {
-      
-      axios.get(`https://jsonplaceholder.typicode.com/${this.state.resourceType}`)
-      
-      .then(resp => this.setState({items:resp.data}))
-    }
-  }
+  // componentDidUpdate(prevProps, prevState){
+    // 
+    // if(prevState.resourceType !== this.state.resourceType)
+    // {
+      // 
+      // axios.get(`https://jsonplaceholder.typicode.com/${this.state.resourceType}`)
+      // 
+      // .then(resp => this.setState({items:resp.data}))
+    // }
+  // }
 
   compareBy = (key) => {
     return function(a, b) {
@@ -49,13 +49,25 @@ export default class App extends Component {
     const dataCopy = this.state.items.filter((row)=>row.id !== id)
     this.setState({items:dataCopy});
   }
+  changeState = (renderValue)=>{
+    //if(this.state.resourceType !== renderValue)
+    //{
+      axios.get(`https://jsonplaceholder.typicode.com/${renderValue}`)
+      
+      .then(resp => this.setState({
+        resourceType: renderValue,
+        items:resp.data}))
+    //}
+  }
   render() {
     
     return (
       <div> 
-        <button className='btn' onClick={()=>{this.setState({resourceType:'posts'})}}>Posts</button>
-        <button className='btn' onClick={()=>{this.setState({resourceType:'comments'})}}>Comments</button>
-        <button className='btn' onClick={()=>{this.setState({resourceType:'users'})}}>Users</button>
+        <div>
+        <button className='btn' onClick={()=>{this.changeState('posts')}}>Posts</button>
+        <button className='btn' onClick={()=>{this.changeState('comments')}}>Comments</button>
+        <button className='btn' onClick={()=>{this.changeState('users')}}>Users</button>
+        </div>
         <h1 align="center">{(this.state.resourceType).toUpperCase()}</h1>
         <hr></hr><br></br>
         {(this.state.resourceType==='posts') && <PostApi posts={this.state.items} del={this.del} sortBy={this.sortBy}/>}

@@ -40,7 +40,7 @@
 table{
   border: 1px solid black;
   border-collapse: collapse;
-  width: 90%;
+  width: 95%;
   margin: auto;
 }
 th, td{
@@ -49,7 +49,7 @@ th, td{
 th{
   background-color: #282c34;
   color: aliceblue;
-  padding: 12px;
+  padding: 3px;
 }
 td{
   text-align: center;
@@ -90,4 +90,15 @@ hr{
   width: auto;
   height: auto;
   background-color: rgb(241, 31, 31);
+}
+
+.icons, .ids{
+  margin-top: 12px;
+}
+.icons:hover, .ids:hover{
+  color: brown;
+}
+
+.headings{
+  display: flex;
 }
