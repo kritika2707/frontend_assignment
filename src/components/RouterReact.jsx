@@ -4,22 +4,9 @@ import UserApi from './UserApi';
 import CommentsApi from './CommentsApi'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-
+let resourceType = "";
 export default class RouterReact extends Component{
-    constructor(props){
-        super(props);
-        this.state ={resourceType: 'posts', items:[]}
-    }
-
-    componentDidMount(){
-        //api call
-        
-        axios.get('https://jsonplaceholder.typicode.com/posts')
-       
-        .then(resp => this.setState({items:resp.data}))
-        
-    }
-
+    
     compareBy = (key) => {
         return function(a, b) {
         if (a[key] < b[key]) return -1;
@@ -33,33 +20,37 @@ export default class RouterReact extends Component{
         this.setState({items: arrayCopy});
       };
       del = (id)=>{
-        const dataCopy = this.state.items.filter((row)=>row.id !== id)
-        this.setState({items:dataCopy});
+        this.setState({
+          items:this.state.items.filter((row)=>row.id !== id)
+        });
       }
       changeState = (renderValue)=>{
+        // resourceType = renderValue;
+        if(renderValue !== resourceType){
           axios.get(`https://jsonplaceholder.typicode.com/${renderValue}`)
           
           .then(resp => this.setState({
-            resourceType: renderValue,
-            items:resp.data}))
+            items:resp.data,
+          }));
+          resourceType = renderValue;
       }
+    }
 
       render() {
   
         return (
-          <div> 
+          <>             
             <div>
             <Link to='/posts'><button className='btn' onClick={()=>{this.changeState('posts')}}>Posts</button></Link>
             <Link to='/comments'><button className='btn' onClick={()=>{this.changeState('comments')}}>Comments</button></Link>
             <Link to='/users'><button className='btn' onClick={()=>{this.changeState('users')}}>Users</button></Link>
             </div>
-            <h1 align="center">{(this.state.resourceType).toUpperCase()}</h1>
-            <hr></hr><br></br>
-            {(this.state.resourceType==='posts') && <PostApi posts={this.state.items} del={this.del} sortBy={this.sortBy}/>}
-            {(this.state.resourceType==='comments') && <CommentsApi comments={this.state.items} del={this.del} sortBy={this.sortBy}/>}
-            {(this.state.resourceType==='users') && <UserApi users={this.state.items} del={this.del} sortBy={this.sortBy}/>}
             
-          </div>
+            {(resourceType==='posts') && <PostApi posts={this.state.items} del={this.del} sortBy={this.sortBy}/>}
+            {(resourceType==='comments') && <CommentsApi comments={this.state.items} del={this.del} sortBy={this.sortBy}/>}
+            {(resourceType==='users') && <UserApi users={this.state.items} del={this.del} sortBy={this.sortBy}/>}
+            
+          </>
         );
       }
 }
