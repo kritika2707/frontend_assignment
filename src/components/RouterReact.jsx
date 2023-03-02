@@ -1,56 +1,50 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PostApi from './PostApi';
 import UserApi from './UserApi';
 import CommentsApi from './CommentsApi'
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-let resourceType = "";
-export default class RouterReact extends Component{
-    
-    compareBy = (key) => {
+
+export default function RouterReact (){
+    const [resourceType, setResourceType]=useState();
+    const [items, setItems] = useState();
+    const compareBy = (key) => {
         return function(a, b) {
         if (a[key] < b[key]) return -1;
         if (a[key] > b[key]) return 1;
         return 0;
         };
       };
-      sortBy = (key) => {
-        let arrayCopy = [...this.state.items];
-        arrayCopy.sort(this.compareBy(key));
-        this.setState({items: arrayCopy});
+    const sortBy = (key) => {
+        let arrayCopy = [...items];
+        arrayCopy.sort(compareBy(key));
+        setItems({items: arrayCopy});
       };
-      del = (id)=>{
-        this.setState({
-          items:this.state.items.filter((row)=>row.id !== id)
+    const del = (id)=>{
+        setItems({
+          items: items.filter((row)=>row.id !== id)
         });
       }
-      changeState = (renderValue)=>{
-        // resourceType = renderValue;
-        if(renderValue !== resourceType){
+    const changeState = (renderValue)=>{
           axios.get(`https://jsonplaceholder.typicode.com/${renderValue}`)
           
-          .then(resp => this.setState({
-            items:resp.data,
-          }));
-          resourceType = renderValue;
-      }
-    }
+          .then(resp => setItems(resp.data));
+          setResourceType(renderValue);
+        }
 
-      render() {
   
         return (
           <>             
             <div>
-            <Link to='/posts'><button className='btn' onClick={()=>{this.changeState('posts')}}>Posts</button></Link>
-            <Link to='/comments'><button className='btn' onClick={()=>{this.changeState('comments')}}>Comments</button></Link>
-            <Link to='/users'><button className='btn' onClick={()=>{this.changeState('users')}}>Users</button></Link>
+            <Link to='/posts'><button className='btn' onClick={()=>changeState('posts')}>Posts</button></Link>
+            <Link to='/comments'><button className='btn' onClick={()=>changeState('comments')}>Comments</button></Link>
+            <Link to='/users'><button className='btn' onClick={()=>changeState('users')}>Users</button></Link>
             </div>
             
-            {(resourceType==='posts') && <PostApi posts={this.state.items} del={this.del} sortBy={this.sortBy}/>}
-            {(resourceType==='comments') && <CommentsApi comments={this.state.items} del={this.del} sortBy={this.sortBy}/>}
-            {(resourceType==='users') && <UserApi users={this.state.items} del={this.del} sortBy={this.sortBy}/>}
+            {(resourceType==='posts') && <PostApi posts={items} del={del} sortBy={sortBy}/>}
+            {(resourceType==='comments') && <CommentsApi comments={items} del={del} sortBy={sortBy}/>}
+            {(resourceType==='users') && <UserApi users={items} del={del} sortBy={sortBy}/>}
             
           </>
         );
-      }
 }

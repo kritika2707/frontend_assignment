@@ -9,14 +9,15 @@ export default function PostApi (props) {
         <h1 align="center">POSTS</h1>
         <hr></hr><br></br>
         <table>
-        <thead>
+        <thead><tr>
         <th><span className='heads'>Id</span><span className='ids'><UnfoldMoreIcon className='icon-tag' onClick={()=>{props.sortBy('id')}}/></span></th>
         <th><span className='heads'>Title</span><span className='icons'><UnfoldMoreIcon className='icon-tag' onClick={()=>{props.sortBy('title')}}/></span></th>
         <th><span className='heads'>Message</span><span className='icons'><UnfoldMoreIcon className='icon-tag' onClick={()=>{props.sortBy('body')}}/></span></th>
         <th>Delete Record</th>
+        </tr>
         </thead>
         <tbody>
-        {props.posts && props.posts.map((post,index)=><tr key={index}><td>{post.id}</td><td>{post.title}</td><td>{post.body}</td><td><button className='delete-btn'><DeleteForeverIcon onClick={()=>props.del(post.id)}/></button></td></tr>)}
+        {props.posts && props.posts.map((post)=><tr key={post.id}><td>{post.id}</td><td>{post.title}</td><td>{post.body}</td><td><button className='delete-btn'><DeleteForeverIcon onClick={()=>props.del(post.id)}/></button></td></tr>)}
         </tbody>
         </table>
     </>

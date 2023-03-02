@@ -14,7 +14,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #8DC6FF;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -60,22 +60,25 @@ td{
   padding: 12px;
 }
 button{
-  background-color: #0f1011;
+  background-color: #005874;
   color: aliceblue;
   margin: 5px;
   padding: 10px;
   border-radius: 5px;
-  border: none;
+  border: 1px solid aliceblue;
   font-size: 15px;
   cursor: pointer;
 }
 
 body{
-  background-color: #353837;
+  background-color: #8DC6FF;
 }
 
 h1{
-  color: antiquewhite;
+  color: #005874;
+}
+h1:hover{
+  color: #FFE162
 }
 button:hover{
   background-color: aliceblue;
@@ -83,8 +86,9 @@ button:hover{
 }
 hr{
   width: 5%;
-  height: 2px;
-  background-color:  rgb(44, 240, 217);
+  height: 4px;
+  background-color:  #FF008E;
+  border: none;
 }
 .delete-btn{
   width: auto;
